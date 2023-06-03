@@ -19,9 +19,12 @@ ENV ANDROID_NDK_HOME /usr/lib/android-sdk/ndk/$NDK_VERSION/
 FROM android-sdk as dev-build
 SHELL ["bash", "-c"]
 WORKDIR /build
+RUN apt --quiet update &&\
+    apt --quiet install -y git &&\
+    rm -rf /var/lib/apt/lists/*
 RUN git clone --recurse-submodules --shallow-submodules https://github.com/project-chip/connectedhomeip.git
 RUN apt --quiet update &&\
-    apt --quiet install -y git python3 python3-venv &&\
+    apt --quiet install -y python3 python3-venv &&\
     rm -rf /var/lib/apt/lists/*
 RUN cd connectedhomeip &&\
     source scripts/bootstrap.sh
