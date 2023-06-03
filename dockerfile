@@ -22,8 +22,8 @@ RUN apt --quiet update &&\
     rm -rf /var/lib/apt/lists/*
 SHELL ["bash", "-c"]
 WORKDIR /build
-RUN git clone --recurse-submodules --shallow-submodules https://github.com/project-chip/connectedhomeip.git &&\
-    cd connectedhomeip &&\
+RUN git clone --recurse-submodules --shallow-submodules https://github.com/project-chip/connectedhomeip.git
+RUN cd connectedhomeip &&\
     source scripts/bootstrap.sh
 ENV TARGET_CPU arm64
 RUN cd connectedhomeip &&\
