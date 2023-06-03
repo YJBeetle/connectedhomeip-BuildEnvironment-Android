@@ -4,7 +4,7 @@ FROM debian:bookworm-backports as android-sdk
 # https://doc.qt.io/qt-6/android-getting-started.html
 ENV NDK_VERSION 23.2.8568313
 RUN apt --quiet update --yes &&\
-    apt --quiet install --yes wget unzip android-sdk &&\
+    apt --quiet install --yes wget unzip android-sdk git &&\
     wget -nc -O /tmp/commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip &&\
     unzip -o /tmp/commandlinetools.zip -d /usr/lib/android-sdk &&\
     rm /tmp/commandlinetools.zip &&\
