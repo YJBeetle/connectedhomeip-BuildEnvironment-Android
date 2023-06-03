@@ -1,4 +1,4 @@
-FROM debian:bookworm-backports
+FROM debian:bookworm-backports as android-sdk
 
 # Setup Android SDK
 # https://doc.qt.io/qt-6/android-getting-started.html
@@ -15,9 +15,14 @@ RUN apt --quiet update --yes &&\
 ENV ANDROID_HOME /usr/lib/android-sdk/
 ENV ANDROID_NDK_HOME /usr/lib/android-sdk/ndk/$NDK_VERSION/
 
-RUN cd 3rdParty/connectedhomeip &&\
+FROM android-sdk as dev-build
+WORKDIR /build
+RUN git clone https://github.com/project-chip/connectedhomeip.git &&\
+    cd connectedhomeip &&\
     source scripts/bootstrap.sh
-
 ENV TARGET_CPU arm64
+RUN cd connectedhomeip &&\
+    ./scripts/examples/android_app_ide.sh
 
-RUN ./scripts/examples/android_app_ide.sh
+FROM android-sdk
+COPY --from=dev-build /build/connectedhomeip /connectedhomeip
