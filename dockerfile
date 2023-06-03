@@ -4,7 +4,8 @@ FROM debian:bookworm-backports as android-sdk
 # https://doc.qt.io/qt-6/android-getting-started.html
 ENV NDK_VERSION 23.2.8568313
 RUN apt --quiet update --yes &&\
-    apt --quiet install --yes wget unzip android-sdk git &&\
+    apt --quiet install --yes wget unzip android-sdk &&\
+    rm -rf /var/lib/apt/lists/* &&\
     wget -nc -O /tmp/commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip &&\
     unzip -o /tmp/commandlinetools.zip -d /usr/lib/android-sdk &&\
     rm /tmp/commandlinetools.zip &&\
@@ -16,6 +17,9 @@ ENV ANDROID_HOME /usr/lib/android-sdk/
 ENV ANDROID_NDK_HOME /usr/lib/android-sdk/ndk/$NDK_VERSION/
 
 FROM android-sdk as dev-build
+RUN apt --quiet update --yes &&\
+    apt --quiet install --yes git &&\
+    rm -rf /var/lib/apt/lists/*
 WORKDIR /build
 RUN git clone https://github.com/project-chip/connectedhomeip.git &&\
     cd connectedhomeip &&\
