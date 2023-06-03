@@ -20,6 +20,7 @@ FROM android-sdk as dev-build
 RUN apt --quiet update --yes &&\
     apt --quiet install --yes git &&\
     rm -rf /var/lib/apt/lists/*
+SHELL ["bash", "-c"]
 WORKDIR /build
 RUN git clone https://github.com/project-chip/connectedhomeip.git &&\
     cd connectedhomeip &&\
