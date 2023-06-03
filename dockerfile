@@ -17,12 +17,12 @@ ENV ANDROID_HOME /usr/lib/android-sdk/
 ENV ANDROID_NDK_HOME /usr/lib/android-sdk/ndk/$NDK_VERSION/
 
 FROM android-sdk as dev-build
-RUN apt --quiet update &&\
-    apt --quiet install -y git python3 &&\
-    rm -rf /var/lib/apt/lists/*
 SHELL ["bash", "-c"]
 WORKDIR /build
 RUN git clone --recurse-submodules --shallow-submodules https://github.com/project-chip/connectedhomeip.git
+RUN apt --quiet update &&\
+    apt --quiet install -y git python3 &&\
+    rm -rf /var/lib/apt/lists/*
 RUN cd connectedhomeip &&\
     source scripts/bootstrap.sh
 ENV TARGET_CPU arm64
