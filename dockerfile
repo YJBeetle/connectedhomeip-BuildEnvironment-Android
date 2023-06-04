@@ -24,7 +24,7 @@ RUN apt-get --quiet update &&\
     rm -rf /var/lib/apt/lists/*
 RUN git clone --recurse-submodules --shallow-submodules https://github.com/project-chip/connectedhomeip.git
 RUN apt-get --quiet update &&\
-    apt-get --quiet install -y python3 python3-pip python3-venv &&\
+    apt-get --quiet install -y python3-full &&\
     rm -rf /var/lib/apt/lists/*
 RUN cd connectedhomeip &&\
     source scripts/bootstrap.sh
