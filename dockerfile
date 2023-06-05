@@ -16,7 +16,7 @@ RUN apt-get --quiet update &&\
 ENV ANDROID_HOME /usr/lib/android-sdk/
 ENV ANDROID_NDK_HOME /usr/lib/android-sdk/ndk/$NDK_VERSION/
 
-FROM android-sdk as dev-build
+FROM android-sdk
 SHELL ["bash", "-c"]
 WORKDIR /build
 RUN apt-get --quiet update &&\
@@ -31,6 +31,3 @@ RUN cd connectedhomeip &&\
 ENV TARGET_CPU arm64
 RUN cd connectedhomeip &&\
     ./scripts/examples/android_app_ide.sh
-
-FROM android-sdk
-COPY --from=dev-build /build/connectedhomeip /connectedhomeip
