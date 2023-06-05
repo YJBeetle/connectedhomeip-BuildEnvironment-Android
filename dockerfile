@@ -22,7 +22,7 @@ WORKDIR /build
 RUN apt-get --quiet update &&\
     apt-get --quiet install -y git &&\
     rm -rf /var/lib/apt/lists/*
-RUN git clone --recurse-submodules --shallow-submodules https://github.com/project-chip/connectedhomeip.git
+RUN git clone --depth=1 https://github.com/project-chip/connectedhomeip.git
 RUN apt-get --quiet update &&\
     apt-get --quiet install -y python3-full python3-pip libgirepository-1.0-1 pkgconf libglib2.0-dev &&\
     rm -rf /var/lib/apt/lists/*
