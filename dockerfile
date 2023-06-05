@@ -26,6 +26,9 @@ RUN git clone --recurse-submodules --shallow-submodules https://github.com/proje
 RUN apt-get --quiet update &&\
     apt-get --quiet install -y python3-full python3-pip &&\
     rm -rf /var/lib/apt/lists/*
+RUN apt-get --quiet update &&\
+    apt-get --quiet install -y libgirepository-1.0-1 &&\
+    rm -rf /var/lib/apt/lists/*
 RUN cd connectedhomeip &&\
     source scripts/bootstrap.sh
 ENV TARGET_CPU arm64
