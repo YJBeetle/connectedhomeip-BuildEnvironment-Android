@@ -35,7 +35,7 @@ ENV TARGET_CPU arm64
 RUN cd connectedhomeip &&\
     ./scripts/examples/android_app_ide.sh
 
-RUN ln -s connectedhomeip /connectedhomeip
+RUN ln -s /build/connectedhomeip /connectedhomeip
 RUN apt-get --quiet update &&\
     apt-get --quiet install -y cmake ninja-build &&\
     rm -rf /var/lib/apt/lists/*
