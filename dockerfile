@@ -27,6 +27,7 @@ RUN apt-get --quiet update &&\
     apt-get --quiet install -y python3-full python3-pip libgirepository-1.0-1 pkgconf libglib2.0-dev &&\
     rm -rf /var/lib/apt/lists/*
 RUN cd connectedhomeip &&\
+    git rm third_party/openthread/ot-* &&\
     sed -i 's/git submodule update$/git submodule update --depth 1/g' scripts/bootstrap.sh &&\
     sed -i 's/git submodule update --init$/git submodule update --init --depth 1/g' scripts/bootstrap.sh &&\
     source scripts/bootstrap.sh
