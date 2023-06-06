@@ -35,4 +35,4 @@ RUN cd connectedhomeip &&\
     ./scripts/examples/android_app_ide.sh
 
 FROM android-sdk
-COPY --from=dev-build /build/connectedhomeip/out /connectedhomeip
+COPY --from=dev-build /build/connectedhomeip/out /connectedhomeip/out
