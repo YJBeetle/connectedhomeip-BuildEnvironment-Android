@@ -37,4 +37,7 @@ RUN cd connectedhomeip &&\
 
 FROM android-sdk
 COPY --from=dev-build /build/connectedhomeip/out /connectedhomeip/out
+RUN apt-get --quiet update &&\
+    apt-get --quiet install -y cmake ninja-build &&\
+    rm -rf /var/lib/apt/lists/*
 WORKDIR /src
