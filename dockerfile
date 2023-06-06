@@ -25,15 +25,14 @@ ENV ANDROID_NDK_HOME /usr/lib/android-sdk/ndk/$NDK_VERSION/
 
 FROM android-sdk
 SHELL ["bash", "-c"]
-WORKDIR /build
 RUN apt-get --quiet update &&\
     apt-get --quiet install -y git &&\
     rm -rf /var/lib/apt/lists/*
-RUN git clone --depth=1 https://github.com/project-chip/connectedhomeip.git
+RUN cd / && git clone --depth=1 https://github.com/project-chip/connectedhomeip.git
 RUN apt-get --quiet update &&\
     apt-get --quiet install -y python3-full python3-pip libgirepository-1.0-1 pkgconf libglib2.0-dev &&\
     rm -rf /var/lib/apt/lists/*
-RUN cd connectedhomeip &&\
+RUN cd /connectedhomeip &&\
     git rm -r third_party/openthread/ot-* third_party/ti_simplelink_sdk third_party/mt793x_sdk &&\
     sed -i 's/git submodule update$/git submodule update --depth 1/g' scripts/bootstrap.sh &&\
     sed -i 's/git submodule update --init$/git submodule update --init --depth 1/g' scripts/bootstrap.sh &&\
@@ -41,13 +40,12 @@ RUN cd connectedhomeip &&\
 RUN apt-get --quiet update &&\
     apt-get --quiet install -y curl &&\
     rm -rf /var/lib/apt/lists/*
-RUN cd connectedhomeip &&\
+RUN cd /connectedhomeip &&\
     ./third_party/java_deps/set_up_java_deps.sh
 ENV TARGET_CPU arm64
-RUN cd connectedhomeip &&\
+RUN cd /connectedhomeip &&\
     ./scripts/examples/android_app_ide.sh
 
-RUN ln -s /build/connectedhomeip /connectedhomeip
 RUN apt-get --quiet update &&\
     apt-get --quiet install -y cmake ninja-build &&\
     rm -rf /var/lib/apt/lists/*
