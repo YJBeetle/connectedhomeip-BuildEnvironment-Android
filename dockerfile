@@ -34,3 +34,6 @@ RUN cd connectedhomeip &&\
 ENV TARGET_CPU arm64
 RUN cd connectedhomeip &&\
     ./scripts/examples/android_app_ide.sh
+
+RUN ln -s connectedhomeip /connectedhomeip
+WORKDIR /src
