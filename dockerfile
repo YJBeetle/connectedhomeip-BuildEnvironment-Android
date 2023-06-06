@@ -38,6 +38,11 @@ RUN cd connectedhomeip &&\
     sed -i 's/git submodule update$/git submodule update --depth 1/g' scripts/bootstrap.sh &&\
     sed -i 's/git submodule update --init$/git submodule update --init --depth 1/g' scripts/bootstrap.sh &&\
     source scripts/bootstrap.sh
+RUN apt-get --quiet update &&\
+    apt-get --quiet install -y curl &&\
+    rm -rf /var/lib/apt/lists/*
+RUN cd connectedhomeip &&\
+    ./third_party/java_deps/set_up_java_deps.sh
 ENV TARGET_CPU arm64
 RUN cd connectedhomeip &&\
     ./scripts/examples/android_app_ide.sh
