@@ -36,3 +36,4 @@ RUN cd connectedhomeip &&\
 
 FROM android-sdk
 COPY --from=dev-build /build/connectedhomeip/out /connectedhomeip/out
+WORKDIR /src
